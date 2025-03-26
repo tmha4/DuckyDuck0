@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap');
+* {
+margin: 0;
+padding: 0;
+font-family: "Noto Naskh Arabic", serif;
+font-optical-sizing: auto;
+font-weight: weight;
+font-style: normal;
+}
+/*FONT TITLE D U C K*/
+.winky-sans-m {
+  font-family: "Winky Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300px;
+  font-style: normal;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* يخلي الصفحة تأخذ ارتفاع الشاشة بالكامل */
+  margin: 0;
+}
+main {
+  flex: 1;
+  min-height: 100vh; /* يضمن وجود مساحة كافية للمحتوى */
+}
+nav img{
+  width: 70px;
+  margin-left: 20px;
+  display: block;
+}
+nav{
+  position: absolute; /* يحدد موقع `nav` */
+  top:0;
+  left:0;
+  width: 50%;
+  z-index: 10;
+  display: flex;
+  padding: 10px 50px;
+  margin-right: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+nav a {
+  margin-right: 10px;
+  padding: -10;
+}
+.nav-links{
+  flex: 1%;
+  text-align: left;
+}
+.nav-links ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 8px  12px;
+  position: relative;
+}
+.nav-links ul li a {
+  color: #fff;
+  justify-content: flex-start;
+  text-decoration: none; /*يشيل الخط اللي تحت الكلام */
+  font-size: 16px;
+  padding-bottom: 5px; /* المسافة بين النص والخط */
+}
+.nav-links ul li::after{
+  content: '';
+     position: absolute;
+     bottom:0;
+     left: 50%;
+  width: 0%; /* 0 hide menu to display when hover*/
+  height: 2px;
+  background: #A6AEBF;
+display: block;
+margin: auto;
+transition: 0.3s; /* hover effict */
+margin-left: -50%; /* محاذاة الخط تمامًا للمنتصف */
+}
+.nav-links ul li:hover::after{
+width: 100%;
+}
+nav .fa {
+  display: none;
+  color: red;
+}
+/*------------------------------------*/
+
+/* WAVE CSS */
+
+.svg-container {
+	position: absolute;
+	top: 200px;
+	height: 0;
+	width: 100%;
+	padding-bottom: calc(100% * 45 / 1440);
+  z-index: -1; /* يخليها في الخلف */
+  
+}
+@media (max-width: 700px) {
+    .svg-container {
+        padding-bottom: calc(100% * 30 / 1200); /* أي نسبة تناسبك */
+    }
+}
+
+/* PAGE SET UP */
+header {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 200px;
+	background-color: #C5D3E8;
+	background-size: cover;
+	background-position: center;
+}
+
+#title {
+  font-family: "Winky Sans", sans-serif;
+	font-size: 8rem;
+	color: #ffffff;
+	letter-spacing: 16px;
+  margin-top: 150px;
+}
+
+h1, h2 {
+	text-transform: uppercase;
+}
+
+h2 {
+	margin-top: 1.25em;
+	font-size: 3rem;
+}
+
+h2, p {
+	font-family: 'Montserrat', sans-serif;
+	text-align: center;
+}
+
+h2, a {
+	color: #FFF5E4;
+}
+
+a {
+	text-decoration: none;
+}
+.footer1{
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+.footer-content {
+display: flex;
+    align-items: center; /* يجعل الأيقونة والنص بمحاذاة أفقية */
+    gap: -10px; /* مسافة بين الأيقونة والنص */
+}
+.footer-content dotlottie-player {
+    transform: translateY(-10px); /* رفع الأيقونة بمقدار 2px */
+}
+.footer-text {
+  font-family: "Winky Sans", sans-serif;
+    font-size: 14px;
+    color: #737373;
+}
+/*----button----*/
+.button-container {
+  display: flex;
+  justify-content: center; /* توسيط العناصر أفقياً */
+  gap: 50px; /* تحديد المسافة بين الأزرار */
+  margin-top: 200px;
+}
+
+/* From Uiverse.io by vinodjangid07 */
+.button-container button {
+  width: 190px; /* حدد عرض ثابت للزر */
+  height: 50px; /* حدد ارتفاع ثابت للزر */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #A6AEBF;
+  border: 8px solid #cdd5e5;
+  color: white;
+  gap: 8px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+  overflow: auto; ; /* إخفاء النص إذا كان يتجاوز الحد */
+  word-wrap: break-word;/* يسمح بتقسيم النص إلى سطور */
+}
+.button-container text {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 1px;
+    white-space: normal; /* يسمح بالنص بالتنقل إلى سطر جديد */
+}
+.svg {
+  padding-top: 10px;
+  height: 100%;
+  width: fit-content;
+  display: flex;
+}
+.svg svg {
+  width: 20px;
+  height: 25px;
+}
+.button-container button:hover {
+  border: 6px solid #A6AEBF;
+  background-color: #cdd5e5;
+}
+.button-container button:active {
+  border: 5px solid #c0dfff;
+}
+.button-container button:hover .svg svg {
+  animation: jello-vertical 0.9s both;
+  transform-origin: bottom;
+}
+
+@keyframes jello-vertical {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  40% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  50% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+/* Site footer */ 
+.site-footer
+{
+  background-color:#C5D3E8;
+  padding:45px 0 20px;
+  font-size:15px;
+  line-height:24px;
+
+  color:#737373; /*لون الخط*/
+  bottom: 0;
+  width: 100%;
+  margin-top: 200px; 
+}
+.site-footer hr
+{
+  border-top-color:#bbb;
+  opacity:0.5
+}
+.site-footer hr.small
+{
+  margin:20px 0
+}
+.site-footer a
+{
+  color:#737373;
+}
+.site-footer a:hover
+{
+  color:#d1b434;
+  text-decoration:none;
+}
+.copyright-text
+{
+  font-family: "Winky Sans", sans-serif;
+  display: block; /*يجعل النص يظهر في سطر منفصل */
+  text-align: center;
+}
+@media (max-width:991px)
+{
+  .site-footer [class^=col-]
+  {
+    margin-bottom:30px
+  }
+}
+@media (max-width:767px)
+{
+  .site-footer
+  {
+    padding-bottom:0
+  }
+  .site-footer .copyright-text,.site-footer .social-icons
+  {
+    text-align:center
+  }
+}
+

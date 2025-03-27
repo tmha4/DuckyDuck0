@@ -52,7 +52,7 @@ const con = mysql.createConnection({
   //password: "",
   //database: "vote"
 
-  host: process.env.DB_HOST,    // استخدم متغير البيئة DB_HOST
+  host: process.env.DB_HOST,    // استخدم متغير البيئة DB_HOST 
   port: process.env.DB_PORT,    // استخدم متغير البيئة DB_PORT
   user: process.env.DB_USER,    // استخدم متغير البيئة DB_USER
   password: process.env.DB_PASSWORD,  // استخدم متغير البيئة DB_PASSWORD

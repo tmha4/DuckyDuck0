@@ -7,6 +7,8 @@ const path = require('path'); // لإدارة المسارات
 const server = http.createServer(app);
 const router = express.Router();
 const helmet = require('helmet');
+
+
 //sql railway
 require('dotenv').config();
 
@@ -31,15 +33,22 @@ app.use(helmet.contentSecurityPolicy({
   }
 }));
 
-//view engine setup
-app.use(express.static(path.join(__dirname, '..')));
 
+//view engine setup
+
+app.set('views',path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
-app.set('views',path.join(__dirname, '../views'));
+app.use(express.static(path.join(__dirname)));
+
 console.log("views path ************8:", path.join(__dirname, '../views'));
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html')); // تحديد المسار الصحيح للملف
+});
+
+app.get('/test', (req, res) => {
+  res.send('Test route is working');
 });
 
 app.get('/script', (req, res) => {
@@ -56,22 +65,19 @@ app.get('/script', (req, res) => {
 });
 
 app.use(express.json()); //  تمكين `express.json()` عشان استقبال بيانات JSON
-    server.listen(8000, '0.0.0.0', () => {
+const PORT = process.env.port || 8000 ; 
+    server.listen(PORT ,() => {
       console.log('Server is running on http://127.0.0.1:8000');
 });
 
 //SQL
 const mysql2 = require('mysql2');
 const con = mysql2.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "vote"
- // host: process.env.MYSQLHOST,    // استخدم متغير البيئة DB_HOST 
-  //port: process.env.MYSQLPORT,    // استخدم متغير البيئة DB_PORT
-  //user: process.env.MYSQLUSER,    // استخدم متغير البيئة DB_USER
-  //password: process.env.MYSQLPASSWORD,  // استخدم متغير البيئة DB_PASSWORD
-  //database: process.env.MYSQL_DATABASE  // استخدم متغير البيئة DB_NAME
+ host: process.env.MYSQLHOST,    // استخدم متغير البيئة DB_HOST 
+ port: process.env.MYSQLPORT,    // استخدم متغير البيئة DB_PORT
+user: process.env.MYSQLUSER,    // استخدم متغير البيئة DB_USER
+password: process.env.MYSQLPASSWORD,  // استخدم متغير البيئة DB_PASSWORD
+database: process.env.MYSQL_DATABASE  // استخدم متغير البيئة DB_NAME
 });
 
 //التاكد من ان الاتصال بقاعدة البيانات مزبوط

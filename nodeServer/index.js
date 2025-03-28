@@ -21,12 +21,12 @@ app.use(express.static(path.join(__dirname, '..')));
 
 app.set('view engine', 'ejs');
 
-
+app.set('views',path.join(__dirname, '../views'));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html')); // تحديد المسار الصحيح للملف
 });
 
-app.get('/ejs-page', (req, res) => {
+app.get('/script', (req, res) => {
   console.log("جاري تنفيذ الاستعلام...♥️♥️♥️♥️♥️"); 
   sql = 'SELECT * FROM upvote ORDER BY id DESC';
   con.query(sql, function(error,data){
@@ -40,23 +40,22 @@ app.get('/ejs-page', (req, res) => {
 });
 
 app.use(express.json()); //  تمكين `express.json()` عشان استقبال بيانات JSON
-    server.listen(8000, '127.0.0.1', () => {
+    server.listen(8000, '0.0.0.0', () => {
       console.log('Server is running on http://127.0.0.1:8000');
 });
 
 //SQL
-const mysql = require('mysql');
-const con = mysql.createConnection({
-  //host: "localhost",
-  //user: "root",
-  //password: "",
-  //database: "vote"
-
-  host: process.env.DB_HOST,    // استخدم متغير البيئة DB_HOST 
-  port: process.env.DB_PORT,    // استخدم متغير البيئة DB_PORT
-  user: process.env.DB_USER,    // استخدم متغير البيئة DB_USER
-  password: process.env.DB_PASSWORD,  // استخدم متغير البيئة DB_PASSWORD
-  database: process.env.DB_NAME  // استخدم متغير البيئة DB_NAME
+const mysql2 = require('mysql2');
+const con = mysql2.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "vote"
+ // host: process.env.MYSQLHOST,    // استخدم متغير البيئة DB_HOST 
+  //port: process.env.MYSQLPORT,    // استخدم متغير البيئة DB_PORT
+  //user: process.env.MYSQLUSER,    // استخدم متغير البيئة DB_USER
+  //password: process.env.MYSQLPASSWORD,  // استخدم متغير البيئة DB_PASSWORD
+  //database: process.env.MYSQL_DATABASE  // استخدم متغير البيئة DB_NAME
 });
 
 //التاكد من ان الاتصال بقاعدة البيانات مزبوط
@@ -104,7 +103,7 @@ socket.on('send-vote',voteTo =>{ // استقبال تصويت المستخدم
     socket.emit('update',{votingPolls,totalVotes})// يُرسل تحديث للكل حتى المستخدم اللي أرسل التصويت حتى يحصل على البيانات الجديدة
   //fetsh
 
-  app.get ("/ejs-page", function(request, response, next){
+  app.get ("/script", function(request, response, next){
     console.log("جاري تنفيذ الاستعلام...♥️♥️♥️♥️♥️"); 
     sql = 'SELECT * FROM upvote ORDER BY id DESC';
     con.query(sql, function(error,data){

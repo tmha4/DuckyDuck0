@@ -6,6 +6,7 @@ const app = express();  //  تعريف `app`  قبل أي استخدام له
 const path = require('path'); // لإدارة المسارات
 const server = http.createServer(app);
 const router = express.Router();
+const helmet = require('helmet');
 //sql railway
 require('dotenv').config();
 
@@ -16,12 +17,27 @@ const io = socketIo(server, {
         methods: ["GET", "POST"]
     }});
 
+    // إضافة helmet إلى التطبيق لتمكين CSP
+app.use(helmet());
+
+// تعديل سياسة Content Security Policy
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"], // السماح بتحميل الموارد من نفس الموقع
+    imgSrc: ["'self'", "https://duckyduck0-2.onrender.com"], // السماح بتحميل الصور من هذا المصدر
+    scriptSrc: ["'self'", "https://cdn.socket.io"], // السماح بتحميل السكربتات من هذا المصدر
+    styleSrc: ["'self'", "https://fonts.googleapis.com"], // السماح بتحميل الأنماط من هذا المصدر
+    fontSrc: ["'self'", "https://fonts.gstatic.com"], // السماح بتحميل الخطوط من هذا المصدر
+  }
+}));
+
 //view engine setup
 app.use(express.static(path.join(__dirname, '..')));
 
 app.set('view engine', 'ejs');
 
 app.set('views',path.join(__dirname, '../views'));
+console.log("views path ************8:", path.join(__dirname, '../views'));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html')); // تحديد المسار الصحيح للملف
 });

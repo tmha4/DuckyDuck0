@@ -70,6 +70,12 @@ const PORT = process.env.port || 8000 ;
       console.log('Server is running on http://127.0.0.1:8000');
 });
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);  // سجل الخطأ في السجلات
+  res.status(500).send('حدث خطأ في الخادم!');
+});
+
+
 //SQL
 const mysql2 = require('mysql2');
 const con = mysql2.createConnection({

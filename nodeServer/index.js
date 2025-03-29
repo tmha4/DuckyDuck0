@@ -79,11 +79,12 @@ app.use((err, req, res, next) => {
 //SQL
 const mysql2 = require('mysql2');
 const con = mysql2.createConnection({
- host: process.env.MYSQLHOST,    // استخدم متغير البيئة DB_HOST 
- port: process.env.MYSQLPORT,    // استخدم متغير البيئة DB_PORT
-user: process.env.MYSQLUSER,    // استخدم متغير البيئة DB_USER
-password: process.env.MYSQLPASSWORD,  // استخدم متغير البيئة DB_PASSWORD
-database: process.env.MYSQL_DATABASE  // استخدم متغير البيئة DB_NAME
+  host: 'sql12.freesqldatabase.com',
+  //name: sql12770154,
+  user: 'sql12770154',
+  password: 'eTCB21myS7',
+  database: 'sql12770154',
+  port: 3306
 });
 
 //التاكد من ان الاتصال بقاعدة البيانات مزبوط

@@ -1,167 +1,162 @@
 const express = require('express');
-const http = require('http');  // استيراد http لإنشاء خادم
+const http = require('http');  
 const socketIo = require('socket.io');
-const { v4: uuidv4 } = require('uuid'); // مكتبة لإنشاء معرّف فريد لكل زائر
-const app = express();  //  تعريف `app`  قبل أي استخدام له
-const path = require('path'); // لإدارة المسارات
+const { v4: uuidv4 } = require('uuid'); 
+const app = express();  
+const path = require('path'); 
 const server = http.createServer(app);
-const router = express.Router();
-const helmet = require('helmet');
-//sql railway
+const cors = require('cors');
+const mysql2 = require('mysql2/promise'); // استخدم النسخة التي تدعم الوعود (promises)
+
 require('dotenv').config();
 
 const io = socketIo(server, {
-        cors: 
-    {
-        origin:"*",
+    cors: {
+        origin: "http://localhost:8000",
         methods: ["GET", "POST"]
-    }});
-
-    // إضافة helmet إلى التطبيق لتمكين CSP
-app.use(helmet());
-
-// تعديل سياسة Content Security Policy
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'self'"], // السماح بتحميل الموارد من نفس الموقع
-    imgSrc: ["'self'", "https://duckyduck0-2.onrender.com"], // السماح بتحميل الصور من هذا المصدر
-    scriptSrc: ["'self'", "https://cdn.socket.io"], // السماح بتحميل السكربتات من هذا المصدر
-    styleSrc: ["'self'", "https://fonts.googleapis.com"], // السماح بتحميل الأنماط من هذا المصدر
-    fontSrc: ["'self'", "https://fonts.gstatic.com"], // السماح بتحميل الخطوط من هذا المصدر
-  }
-}));
-
-//view engine setup
-app.use(express.static(path.join(__dirname, '..')));
-
-app.set('view engine', 'ejs');
-
-app.set('views',path.join(__dirname, '../views'));
-console.log("views path ************8:", path.join(__dirname, '../views'));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html')); // تحديد المسار الصحيح للملف
-});
-
-app.get('/script', (req, res) => {
-  console.log("جاري تنفيذ الاستعلام...♥️♥️♥️♥️♥️"); 
-  sql = 'SELECT * FROM upvote ORDER BY id DESC';
-  con.query(sql, function(error,data){
-    if (error)
-    {
-      console.error("error fetching data:",error);
     }
-    console.log("البيانات التي تم جلبها من قاعدة البيانات:💙💙💙💙", data); // هنا سيتم طباعة البيانات        res.render('script', {title:'Mhaaaa application', action:'add', sampleData: data});
-    res.render('script', { action:'add', sampleData: data});
-  });
 });
 
-app.use(express.json()); //  تمكين `express.json()` عشان استقبال بيانات JSON
-    server.listen(8000, '0.0.0.0', () => {
-      console.log('Server is running on http://127.0.0.1:8000');
+// إنشاء الاتصال بقاعدة البيانات مرة واحدة
+let con;
+
+async function connectDB() {
+    if (!con) {
+        try {
+            con = await mysql2.createConnection({
+                //host: 'sql205.infinityfree.com',
+                //user: 'if0_38673701',
+                //password: 'Mha0509033915',
+                //database: 'if0_38673701_vote',
+                //port: 3306
+                host: 'localhost',
+                user: 'root',
+                password: '',
+                database: 'vote'
+            });
+            console.log("تم الاتصال بقاعدة البيانات بنجاح!");
+        } catch (err) {
+            console.error("❌ حدث خطأ أثناء الاتصال بقاعدة البيانات:", err);
+        }
+    }
+    return con;
+}
+
+// إعداد المسارات في Express
+app.use(express.static(path.join(__dirname, '..')));
+app.use(cors({
+    origin: "http://localhost:8000" // استبدل بالنطاق الصحيح
+  }));
+  app.use(express.json()); 
+
+// استعلام التصويتات
+app.get('/api/votes', async (req, res) => {
+    const connection = await connectDB();
+    if (!connection) {
+        return res.status(500).json({ error: 'فشل الاتصال بقاعدة البيانات' });
+    }
+    try {
+        const [rows] = await connection.query('SELECT * FROM upvote');
+        res.json(rows);
+    } catch (err) {
+        console.error('Error fetching votes:', err);
+        res.status(500).json({ error: 'Database query failed' });
+    }
 });
 
-//SQL
-const mysql2 = require('mysql2');
-const con = mysql2.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "vote"
- // host: process.env.MYSQLHOST,    // استخدم متغير البيئة DB_HOST 
-  //port: process.env.MYSQLPORT,    // استخدم متغير البيئة DB_PORT
-  //user: process.env.MYSQLUSER,    // استخدم متغير البيئة DB_USER
-  //password: process.env.MYSQLPASSWORD,  // استخدم متغير البيئة DB_PASSWORD
-  //database: process.env.MYSQL_DATABASE  // استخدم متغير البيئة DB_NAME
+// إضافة المسار /data لجلب البيانات من جدول معين
+app.get('/data', async (req, res) => {
+    const connection = await connectDB();
+    if (!connection) {
+        return res.status(500).json({ error: 'فشل الاتصال بقاعدة البيانات' });
+    }
+    try {
+        const [rows] = await connection.query(`
+            SELECT 
+                id, 
+                votingPolls, 
+                percentage, 
+                DATE_FORMAT(time, '%h:%i %p') AS formattedTime,
+                DATE_FORMAT(date, '%d-%m-%Y') AS formattedDate,  -- تنسيق التاريخ (dd-mm-yyyy)
+                totalVotes, 
+                sessionID 
+            FROM upvote
+            ORDER BY date DESC;
+        `);
+                res.json(rows);
+    } catch (err) {
+        console.error('❌ خطأ في الاستعلام:', err);
+        res.status(500).json({ error: 'حدث خطأ في الاستعلام' });
+    }
 });
 
-//التاكد من ان الاتصال بقاعدة البيانات مزبوط
-con.connect((err) => {
-  if (err) {
-    console.error('❌ فشل الاتصال بقاعدة البيانات:', err);
-    return;  // إذا فشل الاتصال، نوقف باقي الكود
-  }
-  console.log('✅ تم الاتصال بقاعدة البيانات بنجاح!');
+
+// تشغيل الخادم
+server.listen(8000, () => {
+    console.log('Server is running on http://127.0.0.1:8000');
 });
 
-
-
+// التعامل مع التوصيل عبر WebSocket
 let totalVotes = 0;
 let votingPolls = {
     'yes': 0,
     'no': 0
-}
+};
 
-io.on('connection',socket =>{ // استقبال اتصال مستخدم 
-// إنشاء معرف فريد للمستخدم إذا لم يكن لديه
-     if (!socket.handshake.sessionID) {
-      socket.handshake.sessionID = uuidv4(); 
-  }
-  console.log(`🔹 مستخدم جديد متصل، معرف الجلسة: ${socket.handshake.sessionID}`);
-
-
-//Send Current Data of Votes to user when visited the site
-socket.emit('update',{votingPolls,totalVotes, sessionID: socket.handshake.sessionID }) // يرسل للمستخدم اللي توه داخل بيانات التصويت الحاليه والعدد الاجمالي
-socket.on('send-vote',voteTo =>{ // استقبال تصويت المستخدم
-    totalVotes += 1; // تحديث عدد الاصوات
-    console.log(voteTo) // نطبع قيمه المتغير بزيادة 1
-    votingPolls[voteTo] += 1;
-// تخزين التصويت في قاعدة البيانات
-  const sql = 'INSERT INTO upvote (sessionID, votingPolls, totalVotes) VALUES (?, ?,?)';
-  const values = [socket.handshake.sessionID,voteTo, 1]; // 1 يعني التصويت من هذا المستخدم
-    con.query(sql, values, (err, result) => {
-    if (err) {
-    console.error("Error inserting vote data into database:", err);
-    return;
+io.on('connection', socket => {
+    if (!socket.handshake.sessionID) {
+        socket.handshake.sessionID = uuidv4();
     }
-    console.log("Vote data inserted into database:", result);
+    console.log(`🔹 مستخدم جديد متصل، معرف الجلسة: ${socket.handshake.sessionID}`);
 
-    socket.broadcast.emit('receive-vote',{votingPolls,totalVotes}); // يرسل تحديث بالنتائج الجديدة إلى جميع المستخدمين المتصلين ما عدا المُرسلة
-    socket.emit('update',{votingPolls,totalVotes})// يُرسل تحديث للكل حتى المستخدم اللي أرسل التصويت حتى يحصل على البيانات الجديدة
-  //fetsh
+    socket.emit('update', { votingPolls, totalVotes, sessionID: socket.handshake.sessionID });
 
-  app.get ("/script", function(request, response, next){
-    console.log("جاري تنفيذ الاستعلام...♥️♥️♥️♥️♥️"); 
-    sql = 'SELECT * FROM upvote ORDER BY id DESC';
-    con.query(sql, function(error,data){
-      if (error)
-      {
-        console.error("error fetching data:",error);
-      }
-      console.log("البيانات التي تم جلبها من قاعدة البيانات:💙💙💙💙", data); // هنا سيتم طباعة البيانات        res.render('script', {title:'Mhaaaa application', action:'add', sampleData: data});
-      response.render('script', {title:'Mhaaaa application', action:'add', sampleData: data});
+    socket.on('send-vote', async (voteTo) => {
+        totalVotes += 1;
+        console.log(voteTo);
+        votingPolls[voteTo] += 1;
+
+        const connection = await connectDB();
+        if (!connection) {
+            return console.error("❌ فشل الاتصال بقاعدة البيانات");
+        }
+
+        const insertSql = 'INSERT INTO upvote (sessionID, votingPolls, totalVotes) VALUES (?, ?, ?)';
+        const insertValues = [socket.handshake.sessionID, voteTo, 1];
+        try {
+            await connection.query(insertSql, insertValues);
+            const updateSql = 'UPDATE upvote SET totalVotes = ? WHERE id = 1';
+            await connection.query(updateSql, [totalVotes]);
+            socket.emit('update', { votingPolls, totalVotes, sessionID: socket.handshake.sessionID }); // يحدث خط التصويت دايركت 
+            socket.broadcast.emit('update', { votingPolls, totalVotes, sessionID: socket.handshake.sessionID });
+        } catch (err) {
+            console.error("❌ خطأ في إدخال أو تحديث البيانات في قاعدة البيانات:", err);
+        }
     });
-  });
 
-// تحديث قاعدة البيانات عشان تتحدث  totalVotes
-const sql = 'UPDATE upvote SET totalVotes = ? WHERE id = 1'; // نفترض أن هناك سجل واحد في قاعدة البيانات يحمل إجمالي الأصوات
-const values = [totalVotes];
-  con.query(sql, values, (err, result) => {
-    if (err) {
-    console.error("❌ خطأ في تحديث totalVotes في قاعدة البيانات:", err);
-    return;
-    }
-console.log("📝 تم تحديث إجمالي الأصوات في قاعدة البيانات:", result);
+    socket.on('sendForm', async (data) => {
+        console.log("تم استلام البيانات من الفورم:", data.value);
+
+        const connection = await connectDB();
+        if (!connection) {
+            return console.error("❌ فشل الاتصال بقاعدة البيانات");
+        }
+
+        const updatePercentageSql = 'UPDATE upvote SET percentage = ? WHERE sessionID = ?';
+        const updatePercentageValues = [data.value, socket.handshake.sessionID];
+        try {
+            await connection.query(updatePercentageSql, updatePercentageValues);
+            console.log("✅ تم تحديث النسبة المئوية في قاعدة البيانات");
+        } catch (err) {
+            console.error('❌ خطأ في تحديث النسبة المئوية في قاعدة البيانات:', err);
+        }
+
+        socket.emit('response', { message: "تم استلام بياناتك: " + data.value });
+
+        
     });
-    
-})
 
-// form
-socket.on('sendForm', (data) => {
-  console.log("تم استلام البيانات من الفورم:", data.value);
-           // تخزين النسبة المدخلة في قاعدة البيانات
-  const sql = 'UPDATE upvote SET percentage = ? WHERE sessionID = ?';
-  const values = [ data.value, socket.handshake.sessionID]; // تغيير 'percentage' إلى القيمة المناسبة في قاعدة البيانات
-  con.query(sql, values, (err, result) => {
-     if (err) {
-     console.error('Error inserting vote percentage:', err);
-     return;
-     }
+    socket.on('disconnect', () => {
+        console.log("مستخدم قطع الاتصال");
+    });
 });
-// إرسال رد للمرسل فقط
-  socket.emit('response', { message: "تم استلام بياناتك: " + data.value });
-  });
-  socket.on('disconnect', () => {
-    console.log("مستخدم قطع الاتصال");
-});
-});
-})

@@ -1,14 +1,17 @@
+
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voting App</title>
+    <title>Vote</title>
+    <link rel="icon" type="image/png" href="../img/love-birds.png">
     <link rel="stylesheet" href="Vstyle.css">
     <link rel="stylesheet" href="style.css"> 
-    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
-    
+    <script src="http://localhost:8000/socket.io/socket.io.js"></script>    
 <!--table things-->
 <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -26,6 +29,7 @@
     <link rel="stylesheet" href="Vstyle.css">
 
 </head>
+
 <body>
       <nav>
 <a href="../index.html"><img src="../img/road.png"></a>
@@ -37,7 +41,7 @@
 </nav>
     <div class="yu">
     <div class="container">
-        <h2>Vote for the duck!🪿</h2>
+        <h2> Vote for the duck!🪿</h2>
         <div class="progress-box" id="yes" onclick="yes(0)">
             <p>Yes </p>
             <div class="progress-bar">
@@ -62,13 +66,12 @@
         <p id="responseMessage"></p>
         <h3>Total Votes : <span id="totalVotes"></span></h3>
     </div>
-    <script defer src="../routes/script.js"></script> <!--تغيير-->
+    <script defer src="routes/script.js"></script> <!--تغيير-->
     
 <!--Table -->
 <div class="content">
     <div class="containerT">      
       <div class="table-responsive">
-        <% if (typeof sampleData !== 'undefined' && sampleData.length > 0) { %>
 <table class="table table-striped custom-table">
 <thead>
     <tr>
@@ -78,28 +81,35 @@
         <th scope="col">time</th>
         <th scope="col">date</th>
         <th scope="col">totalVotes</th>
-    </tr>
+        </tr>
+        
 </thead>
-    <tbody>    
-        <% sampleData.forEach(function(data) { %>
-            <tr>
-              <td><%= data.id %></td>
-              <td><a><%= data.votingPolls %> </a></td>
-              <td><%= data.percentage %></td>
-              <td dir="ltr">
-                <%= new Date(data.date).toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) %>
-              </td>
-              <td dir="ltr"><%= new Date(data.date).toISOString().split('T')[0] %></td>
-              <td><%= data.totalVotes %></td>
-            </tr>
-          <% }); %>
-          </tbody>
-        </table>
-        <% } else { %>
-            <p>لا توجد بيانات لعرضها.</p>
-          <% } %>
-      </div>
+<tbody id="upvoteTable">
+    
+</tbody>
+</table>
+<script>
+    // جلب البيانات من الخادم باستخدام fetch
+    fetch('http://localhost:8000/data')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#upvoteTable');
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.id}</td>
+            <td>${row.votingPolls}</td>
+            <td>${row.percentage}</td>
+            <td>${row.formattedDate}</td>
+            <td>${row.formattedTime}</td>
+            <td>${row.totalVotes}</td>
 
+          `;
+          tableBody.appendChild(tr);
+        });
+      })
+      .catch(error => console.error('حدث خطأ:', error));
+  </script>
 
     </div>
 

@@ -2,45 +2,31 @@ const socket = io ('http://localhost:8000'); //انشاء الاتصال مع ا
 const progressBoxes = document.querySelectorAll('.progress-box');
 const percentTags = document.querySelectorAll('.percent-tag');
 const totalVotesElem = document.getElementById('totalVotes');
-/* var router = express.Router();
 
-router.get ("/", function(request, response, next){
-    const sql = 'SELECT * FROM upvote ORDER BY id DESC';
-    con.query(sql, function(error,data){
-      if (error)
-      {
-        console.error("error fetching data:",error);
-      }
-      else{
-        response.render('vote', {title:'Mhaaaa application', action:'add', sampleData:data});
-      }
-    });
-  });
-module.exports = router;*/
+let vote = false;
 
 for (let i = 0; i < progressBoxes.length; i++) {
     const elem = progressBoxes[i];
     elem.addEventListener('click',()=>{
         addVote(elem,elem.id)
-    })
+    });
 }
 
-let vote = false;
 
 const addVote = (elem,id)=>{
     if (vote) {
         return
     }
     let voteTo = id;
+    elem.classList.add('active');
     socket.emit('send-vote',voteTo);
     vote = true;
-    elem.classList.add('active');
 }
 
 
 socket.on('receive-vote', data => {
-    updatePolls(data)
-})
+    updatePolls(data);
+});
 
 socket.on('update', data => {
     updatePolls(data)

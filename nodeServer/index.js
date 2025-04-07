@@ -6,13 +6,13 @@ const app = express();
 const path = require('path'); 
 const server = http.createServer(app);
 const cors = require('cors');
+//sql filess
 const mysql2 = require('mysql2/promise'); // استخدم النسخة التي تدعم الوعود (promises)
-
 require('dotenv').config();
 
 const io = socketIo(server, {
     cors: {
-        origin: "http://localhost:8000",
+        origin: "*",
         methods: ["GET", "POST"]
     }
 });
@@ -24,15 +24,11 @@ async function connectDB() {
     if (!con) {
         try {
             con = await mysql2.createConnection({
-                //host: 'sql205.infinityfree.com',
-                //user: 'if0_38673701',
-                //password: 'Mha0509033915',
-                //database: 'if0_38673701_vote',
-                //port: 3306
-                host: 'localhost',
-                user: 'root',
-                password: '',
-                database: 'vote'
+                host: 'at4-x.h.filess.io',
+                user: 'vote_makingbend',
+                password: 'd39b3f0bd9c784d472220bcf07366460a49ec3bb',
+                database: 'vote_makingbend',
+                port: 61001
             });
             console.log("تم الاتصال بقاعدة البيانات بنجاح!");
         } catch (err) {
@@ -45,7 +41,7 @@ async function connectDB() {
 // إعداد المسارات في Express
 app.use(express.static(path.join(__dirname, '..')));
 app.use(cors({
-    origin: "http://localhost:8000" // استبدل بالنطاق الصحيح
+    origin: "https://duckyduck0.onrender.com" 
   }));
   app.use(express.json()); 
 
@@ -77,7 +73,7 @@ app.get('/data', async (req, res) => {
                 votingPolls, 
                 percentage, 
                 DATE_FORMAT(time, '%h:%i %p') AS formattedTime,
-                DATE_FORMAT(date, '%d-%m-%Y') AS formattedDate,  -- تنسيق التاريخ (dd-mm-yyyy)
+                DATE_FORMAT(date, '%d-%m-%Y') AS formattedDate, 
                 totalVotes, 
                 sessionID 
             FROM upvote
@@ -91,9 +87,8 @@ app.get('/data', async (req, res) => {
 });
 
 
-// تشغيل الخادم
-server.listen(8000, () => {
-    console.log('Server is running on http://127.0.0.1:8000');
+server.listen(process.env.PORT || 8000, () => {
+    console.log(`Server is running on  ${process.env.PORT || 8000}`);
 });
 
 // التعامل مع التوصيل عبر WebSocket
@@ -116,13 +111,14 @@ io.on('connection', socket => {
         console.log(voteTo);
         votingPolls[voteTo] += 1;
 
-        const connection = await connectDB();
-        if (!connection) {
-            return console.error("❌ فشل الاتصال بقاعدة البيانات");
-        }
+        //
+            const connection = await connectDB();
+    if (!connection) {
+        return console.error(" فشل الاتصال بقاعدة البيانات");
+    }
 
-        const insertSql = 'INSERT INTO upvote (sessionID, votingPolls, totalVotes) VALUES (?, ?, ?)';
-        const insertValues = [socket.handshake.sessionID, voteTo, 1];
+        const insertSql = 'INSERT INTO upvote (sessionID, votingPolls, totalVotes, percentage ) VALUES (?, ?, ?,?)';
+        const insertValues = [socket.handshake.sessionID, voteTo, totalVotes , 0];
         try {
             await connection.query(insertSql, insertValues);
             const updateSql = 'UPDATE upvote SET totalVotes = ? WHERE id = 1';
@@ -130,7 +126,7 @@ io.on('connection', socket => {
             socket.emit('update', { votingPolls, totalVotes, sessionID: socket.handshake.sessionID }); // يحدث خط التصويت دايركت 
             socket.broadcast.emit('update', { votingPolls, totalVotes, sessionID: socket.handshake.sessionID });
         } catch (err) {
-            console.error("❌ خطأ في إدخال أو تحديث البيانات في قاعدة البيانات:", err);
+            console.error(" خطأ في إدخال أو تحديث البيانات في قاعدة البيانات:", err);
         }
     });
 
@@ -152,7 +148,6 @@ io.on('connection', socket => {
         }
 
         socket.emit('response', { message: "تم استلام بياناتك: " + data.value });
-
         
     });
 

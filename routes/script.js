@@ -1,4 +1,4 @@
-const socket = io ('http://localhost:8000'); //انشاء الاتصال مع الخادم, عشان تبادل البيانات بين العميل والخادم في الوقت الفعلي
+const socket = io ('https://duckyduck0.onrender.com'); //انشاء الاتصال مع الخادم, عشان تبادل البيانات بين العميل والخادم في الوقت الفعلي
 const progressBoxes = document.querySelectorAll('.progress-box');
 const percentTags = document.querySelectorAll('.percent-tag');
 const totalVotesElem = document.getElementById('totalVotes');

@@ -29,6 +29,11 @@
             <li><a href="contact.php">CONTACT</a></li>-->
         </ul>
     </div>
+      <div class="hamburger-menu" id="hamburgerMenu">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
   </nav>
   <h1 id="title">D U C K</h1>
   <div class="svg-container">
@@ -39,8 +44,8 @@
 </header>
 <body>
 
-<div class ="button-container">
-  <button onclick="window.location.href='script.html';" class="button">تشغيل PHP</button>
+<<div class ="button-container">
+  <button onclick="window.location.href='script.html';" class="button">
     <span class="text">تصويت</span>
   <span class="svg">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -71,6 +76,14 @@
       </p>     
     </div>
   </footer>
+  <script>
+const hamburgerMenu = document.getElementById('hamburgerMenu');
+const navLinks = document.getElementById('navLinks');
 
+hamburgerMenu.addEventListener('click', () => {
+  navLinks.classList.toggle('active'); 
+});
+
+  </script>
 </body>
 </html>

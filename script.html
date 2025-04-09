@@ -104,19 +104,21 @@
     fetch('https://duckyduck0-2.onrender.com/data')
       .then(response => response.json())
       .then(data => {
-        const tableBody = document.querySelector('#upvoteTable');
+        const tableBody = document.querySelector('#row');
         data.forEach(row => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.id}</td>
-            <td>${row.votingPolls}</td>
-            <td>${row.percentage}</td>
-            <td>${row.formattedDate}</td>
-            <td>${row.formattedTime}</td>
-            <td>${row.totalVotes}</td>
+          const rowDiv = document.createElement('div');
+          rowDiv.classList.add('row');
+          rowDiv.innerHTML = `
+                  <div class="col" data-title="id">${row.id}</div>
+        <div class="col" data-title="votingPolls">${row.votingPolls}</div>
+        <div class="col" data-title="percentage">${row.percentage}</div>
+        <div class="col" data-title="time">${row.formattedTime}</div>
+        <div class="col" data-title="date">${row.formattedDate}</div>
+        <div class="col" data-title="totalVotes">${row.totalVotes}</div>
+
 
           `;
-          tableBody.appendChild(tr);
+          tableBody.appendChild(rowDiv);
         });
       })
       .catch(error => console.error('حدث خطأ:', error));

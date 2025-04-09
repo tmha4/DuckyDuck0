@@ -5,7 +5,6 @@ padding: 0;
 font-family: "Noto Naskh Arabic", serif;
 font-optical-sizing: auto;
 font-weight: weight;
-font-style: normal;
 }
 nav img{
     width: 70px;
@@ -41,9 +40,10 @@ body{
     flex-direction: column;
     border-radius: 12px;
     padding: 30px 40px;
-    margin-top: 100px; /* المسافة من الأعلى */
-    margin-left: auto; /* محاذاة العنصر في المنتصف */
-    margin-right: auto; /* محاذاة العنصر في المنتصف */
+    margin-top: 100px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    margin-bottom: 30px; 
 }
 
 .containerT{
@@ -58,6 +58,7 @@ body{
     margin: 0 auto;
 
 }
+
 .container h2{
     color: #fff;
     align-self: flex-start;
@@ -259,68 +260,210 @@ h2 {
 }
 
 .custom-table {
-  min-width: 650px; /*المسافه بين بيانات الاعمده الاساسيه*/
+  min-width: 700px; /*المسافه بين بيانات الاعمده الاساسيه*/
   text-align: center;
   width: 100%;
 }
-.custom-table thead tr, .custom-table thead th {
-    padding-bottom: 30px;
-    border-top: none;
-    border-bottom: none !important;
+
+  .backHomeLogo {
+    display: inline-block;
+    padding: 5px;
+    transition: transform 0.3s ease;
+    
+  }
+  
+  .backHomeLogo img {
+    width: 70px;
+    margin-left: 20px;
+    display: block;
+  }
+  
+  .backHomeLogo:hover {
+    transform: scale(1.1);
+  }
+
+
+@media (max-width: 767px) {
+    .container, .containerT {
+      width: 35%;
+      padding: 10px;
+      margin-top: 80px;
+    }
+  
+    .progress-box {
+      height: auto;
+      padding: 10px;
+    }
+  
+    .progress-bar span::after {
+      right: -18px;
+      font-size: 10px;
+      padding: 2px 5px;
+    }
+  
+    .FormBlank {
+      display: flex;
+      width: 100%;
+      padding-left: px;
+    }
+    .inputField{
+      width: 55%;
+    
+    }
+    .inputmm {
+      width: auto;
+      text-align: center;
+      cursor: pointer;
+    }
+  
+    
+  }
+  @media (max-width: 767px) {
+    .backHomeLogo {
+      display: inline-block;
+      padding: 5px;
+      position: absolute; /* أو relative حسب المكان اللي تبغاه */
+      top: 10px;
+      left: 10px; /* أو right: 10px لو تبغى الزر في اليمين */
+      z-index: 1000;
+    }
+  
+    .backHomeLogo img {
+      width: 40px;
+      height: auto;
+    }
+
+    body {
+      font-family: "Noto Naskh Arabic", serif;
+      font-size: 14px; /* يمكنك تعديل الحجم كما تريد */
+    }
+    .container h2, .progress-box p, .custom-table td, .custom-table th {
+      font-family: "Noto Naskh Arabic", serif;
+      font-size: 14px; /* تعديل الحجم المناسب للشاشة الصغيرة */
+    }
+  }
+  @media (max-width: 767px) {
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    padding: 25px;
+    max-width: 100%;
+  }
+  
+  .table {
+    width: 100%;
+    display: table;
+    text-align: center;
+  }
+  
+  .row {
+    display: table-row;
+    transition: 0.3s all ease;
+  }
+  
+  .row.header {
+    font-weight: 900;
     color: #fff;
+    background: #3c373e;
+    text-transform: uppercase;
     font-size: 11px;
+    letter-spacing: 0.2rem;
+  }
+  
+  .col {
+    display: table-cell;
+    padding: 20px 10px;
+    font-weight: 300;
+    color: #777;
+    border: none;
+    transition: 0.3s all ease;
+  }
+  
+  .row.header:hover .col {
+    color: #fff;
+  }
+  .row:hover .col[data-title="votingPolls"] {
+    color: #fdd114; /* تغيير اللون إلى الأصفر */
+  }
+  .row:hover .col {
+    color: #efece2;
+  }
+  
+  .col small {
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 300;
+  }
+  
+  .col a {
+    color: rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+  }
+  
+  .more {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 11px;
+    font-weight: 900;
     text-transform: uppercase;
     letter-spacing: .2rem;
-}
-.custom-table tbody th, .custom-table tbody td { /*بيانات الجدول*/
-    color: #777; 
-    font-weight: 400;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    font-weight: 300;
-    border: none;
-    -webkit-transition: .3s all ease;
-    -o-transition: .3s all ease;
-    transition: .3s all ease; 
-    text-align: center;
-}
-.custom-table tbody th small, .custom-table tbody td small {
-      color: rgba(255, 255, 255, 0.3);
-      font-weight: 300; 
+  }
+  
+  .row:hover .more {
+    color: #fdd114;
+  }
+
+  @media screen and (max-width: 580px) {
+    body {
+      font-size: 16px;
+      line-height: 22px;
     }
-    .custom-table tbody th a, .custom-table tbody td a {
-      color: rgba(255, 255, 255, 0.3); }
-.custom-table tbody th .more, .custom-table tbody td .more {
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 11px;
-      font-weight: 900;
+    .table {
+      display: block;
+    }
+    .row {
+      padding: 14px 0 7px;
+      display: block;
+    }
+    .row.header {
+      padding: 0;
+      height: 6px;
+    }
+  
+    .row.header .col {
+      display: none;
+    }
+  
+    .row .col {
+      margin-bottom: 10px;
+    }
+  
+    .row .col:before {
+      margin-bottom: 3px;
+      content: attr(data-title);
+      min-width: 98px;
+      font-size: 10px;
+      line-height: 10px;
+      font-weight: bold;
       text-transform: uppercase;
-      letter-spacing: .2rem; 
-}
-.custom-table tbody tr {
-    -webkit-transition: .3s all ease;
-    -o-transition: .3s all ease;
-    transition: .3s all ease; 
-}
-.custom-table tbody tr:hover td, .custom-table tbody tr:focus td {
-    color: #fff; 
-}
-.custom-table tbody tr:hover td a, .custom-table tbody tr:focus td a {
-    color: #fdd114; 
+      color: #969696;
+      display: block;
     }
-.custom-table tbody tr:hover td .more, .custom-table tbody tr:focus td .more {
-    color: #fdd114; 
-}
-.custom-table .td-box-wrap {
-    padding: 0; 
-}
-.custom-table .box {
-    background: #fff;
-    border-radius: 4px;
-    margin-top: 15px;
-    margin-bottom: 15px; 
-}
-.custom-table .box td, .custom-table .box th {
-    border: none !important;
-}
-/*تأثير على votingPoll*/
+    .col {
+      padding: 2px 16px;
+      display: block;
+    }
+    .row:nth-child(odd) {
+      background-color: #4a434a; /* لون رمادي فاتح للسجل الفردي */
+    }
+    
+    .row:nth-child(even) {
+      background-color:  #201d20; /* لون رمادي أغمق للسجل الزوجي */
+    }
+    .row .col {
+      color: #f3ecec; /* النص يكون باللون الأسود */
+    }    
+  }

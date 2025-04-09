@@ -100,11 +100,15 @@
   </div>
 </div>
 <script>
-    // جلب البيانات من الخادم باستخدام fetch
-    fetch('https://duckyduck0-2.onrender.com/data')
-      .then(response => response.json())
-      .then(data => {
-        const tableBody = document.querySelector('#row');
+window.addEventListener('DOMContentLoaded', () => {
+  fetch('https://duckyduck0-2.onrender.com/data')
+    .then(response => response.json())
+    .then(data => {
+      const tableBody = document.querySelector('#row');
+      if (!tableBody) {
+        console.error('العنصر #row غير موجود!');
+        return;
+      }
         data.forEach(row => {
           const rowDiv = document.createElement('div');
           rowDiv.classList.add('row');

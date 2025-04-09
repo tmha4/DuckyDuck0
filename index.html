@@ -18,23 +18,42 @@
 </head>
 <body>
 <header>
-  <nav>
-    <a href="index.html"><img src="img/road.png"></a>
+  <nav class="navbar">
+    <!-- Logo -->
+    <a href="index.html" class="logo">
+      <img src="img/road.png" alt="logo">
+    </a>
+  
+    <!-- Navigation Links -->
     <div class="nav-links" id="navLinks">
-        <ul>
-            <li><a href="index.html">HOME</a></li>
-            <!--<li><a href="about.php">ABOUT</a></li>
-            <li><a href="course.php">COURSE</a></li>
-            <li><a href="blog.php">BLOG</a></li>
-            <li><a href="contact.php">CONTACT</a></li>-->
-        </ul>
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <!--
+        <li><a href="about.php">ABOUT</a></li>
+        <li><a href="course.php">COURSE</a></li>
+        <li><a href="blog.php">BLOG</a></li>
+        <li><a href="contact.php">CONTACT</a></li>
+        -->
+      </ul>
     </div>
-      <div class="hamburger-menu" id="hamburgerMenu">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
+  
+    <!-- Hamburger Menu -->
+    <div class="navH" id="hamburgerMenu">
+      <input type="checkbox" id="toggleMenu" />
+      <svg>
+        <use xlink:href="#menu" />
+        <use xlink:href="#menu" />
+      </svg>
     </div>
+  
+    <!-- Hidden SVG Symbol -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 56" id="menu">
+        <path d="M48.33,45.6H18a14.17,14.17,0,0,1,0-28.34H78.86a17.37,17.37,0,0,1,0,34.74H42.33l-21-21.26L47.75,4"/>
+      </symbol>
+    </svg>
   </nav>
+  
   <h1 id="title">D U C K</h1>
   <div class="svg-container">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -44,7 +63,7 @@
 </header>
 <body>
 
-<<div class ="button-container">
+<div class ="button-container">
   <button onclick="window.location.href='script.html';" class="button">
     <span class="text">تصويت</span>
   <span class="svg">
@@ -76,12 +95,14 @@
       </p>     
     </div>
   </footer>
+
   <script>
+    // إظهار القائمة عند الضغط على الأيقونة
 const hamburgerMenu = document.getElementById('hamburgerMenu');
 const navLinks = document.getElementById('navLinks');
 
 hamburgerMenu.addEventListener('click', () => {
-  navLinks.classList.toggle('active'); 
+  navLinks.classList.toggle('active'); // عند الضغط على الأيقونة نعرض القوائم
 });
 
   </script>

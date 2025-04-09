@@ -32,7 +32,7 @@
 
 <body>
       <nav>
-<a href="../index.html"><img src="../img/road.png"></a>
+<a href="../index.html" class="backHomeLogo"><img src="../img/road.png"></a>
 <div class="nav-links" id="navLinks">
     <ul>
         <li><a href="index.html" class="home-item">HOME</a></li>
@@ -69,25 +69,36 @@
     <script defer src="routes/script.js"></script> <!--تغيير-->
     
 <!--Table -->
-<div class="content">
     <div class="containerT">      
-      <div class="table-responsive">
 <table class="table table-striped custom-table">
-<thead>
-    <tr>
-        <th scope="col">id</th>
-        <th scope="col">votingPolls</th>
-        <th scope="col">percentage</th>
-        <th scope="col">time</th>
-        <th scope="col">date</th>
-        <th scope="col">totalVotes</th>
-        </tr>
-        
-</thead>
-<tbody id="upvoteTable">
+<!-- Table using DIVs only -->
+<div class="wrapper">
+  <div class="table">
     
-</tbody>
-</table>
+    <!-- Header -->
+    <div class="row header">
+      <div class="col">id</div>
+      <div class="col">votingPolls</div>
+      <div class="col">percentage</div>
+      <div class="col">time</div>
+      <div class="col">date</div>
+      <div class="col">totalVotes</div>
+    </div>
+    
+    <!-- Row 1 -->
+    <div class="row">
+      <div class="col" data-title="id">1</div>
+      <div class="col" data-title="votingPolls">Test</div>
+      <div class="col" data-title="percentage">65%</div>
+      <div class="col" data-title="time">14:22</div>
+      <div class="col" data-title="date">2025-04-09</div>
+      <div class="col" data-title="totalVotes">1234</div>
+    </div>
+
+
+
+  </div>
+</div>
 <script>
     // جلب البيانات من الخادم باستخدام fetch
     fetch('https://duckyduck0.onrender.com/data')

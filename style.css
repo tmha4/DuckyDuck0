@@ -96,11 +96,7 @@ nav .fa {
   z-index: -1; /* يخليها في الخلف */
   
 }
-@media (max-width: 700px) {
-    .svg-container {
-        padding-bottom: calc(100% * 30 / 1200); /* أي نسبة تناسبك */
-    }
-}
+
 
 /* PAGE SET UP */
 header {
@@ -275,6 +271,45 @@ display: flex;
   display: block; /*يجعل النص يظهر في سطر منفصل */
   text-align: center;
 }
+
+
+
+/*M E D I A*/
+@media (max-width: 700px) {
+
+  .logo{
+    margin-left: 0;
+  }
+  .logo img {
+    height: auto;
+    width: 40px; /* حجم الشعار */
+    position: relative;
+    margin: 0;
+  }
+  #hamburgerMenu {
+    position: absolute; /* تحديد مكانه باستخدام absolute */
+    right: -100px; /* المسافة من اليمين */
+    display: block; /* التأكد من أن الهامبرغر مرئي */
+  }
+
+  #hamburgerMenu svg {
+    width: 50px;
+    height: 50px;
+  }
+
+}
+    .navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  .svg-container {
+      padding-bottom: calc(100% * 30 / 1200); /* أي نسبة تناسبك */
+  }
+
+
 @media (max-width:991px)
 {
   .site-footer [class^=col-]
@@ -293,40 +328,29 @@ display: flex;
     text-align:center
   }
 }
+
 @media (max-width: 767px) {
   #title {
     margin-top: 100px;
-    font-size: 3rem; /* تصغير حجم النص لشاشات الجوال */
+    font-size: 3rem; /* حجم النص لشاشات الجوال */
   }
 
-  .logo img {
-    width: 150px; /* تصغير حجم الشعار */
-    position: absolute; /* استخدام الـ absolute للتأكد من المحاذاة */
-    left: 0; /* محاذاة العنصر لأقصى اليسار */
-    top: 50%; /* إذا كنت تريد محاذاة العنصر بشكل عمودي أيضًا */
-    transform: translateY(-50%); /* لتحسين المحاذاة العمودية */
-}
   .nav-links {
-    display: none; /* إخفاء القوائم العادية */
+    display: none; 
+  }
+  .navH {
+    display: flex;
+    justify-content: flex-end; /* لوضع القائمة في الجهة اليمنى */
+    align-items: center; /* لضبط العنصر عموديًا */
+    position: relative; /* يمكن تعديل موقعه بناءً على سياق الصفحة */
   }
 
-  .hamburger-menu {
-    display: block;
-    cursor: pointer;
-  }
-
-  .hamburger-menu .bar {
-    width: 30px;
-    height: 5px;
-    background-color: #333;
-    margin: 6px 0;
-  }
 
   .nav-links.active {
     display: block; /* عند النقر على الأيقونة نعرض القوائم */
     position: absolute;
     top: 60px;
-    left: 0;
+    left: 90px;
     width: 100%;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -344,7 +368,7 @@ display: flex;
 
   .nav-links ul li a {
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 5;
     color: #333;
     display: block;
   }
@@ -354,4 +378,115 @@ display: flex;
   }
 }
 
+.navH {
+  --color: #ffffff;
+  background: none;
+  width: 100px;
+  height: 56px;
+  position: relative;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  
+  svg {
+    fill: none;
+    stroke: var(--color);
+    stroke-width: 7px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 
+    use {
+      &:nth-of-type(1) {
+        opacity: 1;
+        stroke-dashoffset: 221;
+        stroke-dasharray: 46 249;
+        transition: stroke-dashoffset .12s linear .2s, stroke-dasharray .12s linear .2s, opacity 0s linear .2s;
+      }
+      &:nth-of-type(2) {
+        animation: stroke-animation-reverse 1.2s ease-out forwards;
+      }
+    }
+  }
+
+  input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 0;
+
+    &:checked {
+      + svg {
+        use {
+          &:nth-of-type(1) {
+            stroke-dashoffset: 175;
+            stroke-dasharray: 0 295;
+            opacity: 0;
+            transition: stroke-dashoffset .07s linear .07s, stroke-dasharray .07s linear .07s, opacity 0s linear .14s;
+          }
+          &:nth-of-type(2) {
+            animation: stroke-animation 1.2s ease-out forwards;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .navH {
+    order: 2;
+    display: flex;
+    width: 50px; 
+    height: 50px;
+    margin-left: auto;
+    margin: 0;
+    
+  }
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links.active {
+    display: block; 
+  }
+}
+
+@keyframes stroke-animation {
+  0% {
+    stroke-dashoffset: 295;
+    stroke-dasharray: 25 270;
+  }
+  50% {
+    stroke-dashoffset: 68;
+    stroke-dasharray: 59 236;
+  }
+  65% {
+    stroke-dashoffset: 59;
+    stroke-dasharray: 59 236;
+  }
+  100% {
+    stroke-dashoffset: 68;
+    stroke-dasharray: 59 236;
+  }
+}
+
+@keyframes stroke-animation-reverse {
+  0% {
+    stroke-dashoffset: 68;
+    stroke-dasharray: 59 236;
+  }
+  50% {
+    stroke-dashoffset: 290;
+    stroke-dasharray: 25 270;
+  }
+  65% {
+    stroke-dashoffset: 295;
+    stroke-dasharray: 25 270;
+  }
+  100% {
+    stroke-dashoffset: 290;
+    stroke-dasharray: 25 270;
+  }
+}

@@ -1,230 +1,244 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap');
+
 * {
-margin: 0;
-padding: 0;
-font-family: "Noto Naskh Arabic", serif;
-font-optical-sizing: auto;
-font-weight: weight;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Naskh Arabic", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
 }
-nav img{
-    width: 70px;
-    margin-left: 20px;
-    display: block;
-  }
-  .nav-links ul li::after{
-    content: '';
-       position: absolute;
-       bottom:0;
-       left: 50%;
-    width: 0%; /* 0 hide menu to display when hover*/
-    height: 2px;
-    background: #a39da7;
+
+nav img {
+  width: 70px;
+  margin-left: 20px;
+  display: block;
+}
+
+.nav-links ul li::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  /* 0 hide menu to display when hover*/
+  height: 2px;
+  background: #a39da7;
   display: block;
   margin: auto;
-  transition: 0.3s; /* hover effict */
-      margin-left: -50%; /* محاذاة الخط تمامًا للمنتصف */
-  }
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: #1d1d1d;
+  transition: 0.3s;
+  /* hover effict */
+  margin-left: -50%;
+  /* محاذاة الخط تمامًا للمنتصف */
 }
 
-.container{
-    width: 520px;
-    background: #111;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 12px;
-    padding: 30px 40px;
-    margin-top: 100px; 
-    margin-left: auto; 
-    margin-right: auto; 
-    margin-bottom: 30px; 
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #1d1d1d;
 }
 
-.containerT{
-    width: 620px;
-    background: #111;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 12px;
-    padding: 30px 40px;
-    margin: 0 auto;
+.container {
+  width: 520px;
+  background: #111;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 12px;
+  padding: 30px 40px;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+.containerT {
+  width: 620px;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 12px;
+  padding: 30px 40px;
+  margin: 0 auto;
 
 }
 
-.container h2{
-    color: #fff;
-    align-self: flex-start;
+.container h2 {
+  color: #fff;
+  align-self: flex-start;
 }
+
 .nav-links ul li {
-    list-style: none;
-    display: inline-block;
-    padding: 8px  12px;
-    position: relative;
-    float: left;
-  }
-
-.container .progress-box{
-    width: 100%;
-    height: 80px;
-    margin: 12px 0;
-    border: 2px solid rgba(255,255,255,0.2);
-    padding: 10px 18px;
-    box-sizing: border-box;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: .3s;
+  list-style: none;
+  display: inline-block;
+  padding: 8px 12px;
+  position: relative;
+  float: left;
 }
 
-.progress-box:hover{
-    background: rgba(52,52,52,0.133);
-    border: 2px solid rgba(255,255,255,0.5);
+.container .progress-box {
+  width: 100%;
+  height: 80px;
+  margin: 12px 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 18px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: .3s;
 }
 
-.progress-box.active{
-    background: rgba(52,52,52,0.133);
-    border: 2px solid #00ff00;
-    transform: scale(1.1);
-}
-.progress-box p{
-    color: #fff;
+.progress-box:hover {
+  background: rgba(52, 52, 52, 0.133);
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-.progress-box .progress-bar{
-    width: 100%;
-    height: 12px;
-    position: relative;
-    background: #222;
-    box-shadow: inset 0 8px 60px rgba(0,0,0,.1),
-    inset 0 8px 8px rgba(0,0,0,0.1),
-    inset 0 -4px 4px rgba(0,0,0,0.1);
-    margin: 12px 0;
-    border-radius: 16px;
+.progress-box.active {
+  background: rgba(52, 52, 52, 0.133);
+  border: 2px solid #00ff00;
+  transform: scale(1.1);
 }
 
-.progress-bar span{
-    /* width: 20%; */
-    height: 80%;
-    background: #00ff00;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    border-radius: 16px;
-    transition: .6s;
+.progress-box p {
+  color: #fff;
 }
 
-.progress-bar span::after{
-    content: attr(data);
-    position: absolute;
-    right: -25px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 12px;
-    padding: 3px 7px;
-    background: linear-gradient(to bottom, #333,#222);
-    font-weight: 600;
-    color: #fff;
-    border-radius: 24px;
-    border: 1px solid #0005;
-    box-shadow:  0 4px 15px rgba(0,0,0,.3),
-    inset 0 1px 1px rgba(255,255,255,0.2);
+.progress-box .progress-bar {
+  width: 100%;
+  height: 12px;
+  position: relative;
+  background: #222;
+  box-shadow: inset 0 8px 60px rgba(0, 0, 0, .1),
+    inset 0 8px 8px rgba(0, 0, 0, 0.1),
+    inset 0 -4px 4px rgba(0, 0, 0, 0.1);
+  margin: 12px 0;
+  border-radius: 16px;
+}
+
+.progress-bar span {
+  height: 80%;
+  background: #00ff00;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  border-radius: 16px;
+  transition: .6s;
+}
+
+.progress-bar span::after {
+  content: attr(data);
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  padding: 3px 7px;
+  background: linear-gradient(to bottom, #333, #222);
+  font-weight: 600;
+  color: #fff;
+  border-radius: 24px;
+  border: 1px solid #0005;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, .3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
 
-.container .progress-box#no{
-    filter: hue-rotate(300deg);
+.container .progress-box#no {
+  filter: hue-rotate(300deg);
 }
 
-.container .progress-box#yes{
-    filter: hue-rotate(100deg);
+.container .progress-box#yes {
+  filter: hue-rotate(100deg);
 }
 
-.container h3{
-    color: #fff;
+.container h3 {
+  color: #fff;
 }
 
-#totalVotes{
-    color: #838bdc;
+#totalVotes {
+  color: #838bdc;
 }
 
-.subscribe{
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    font-size: 22px;
-    transform: translateX(-50%);
-    color: #fff;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.subscribe {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  font-size: 22px;
+  transform: translateX(-50%);
+  color: #fff;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.subscribe img{
-    width: 130px;
-    display: flex;
+.subscribe img {
+  width: 130px;
+  display: flex;
 }
 
 
 .FormBlank {
-    display: flex;
-    height: 34px;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  height: 34px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* حقل الإدخال */
 .inputField {
-    width: 200px;
-    background-color:rgba(255,255,255,0.2);
-    color: #f4f4f5;
-    padding: 4px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-right: none;
-    border-radius: 8px 0 0 8px;
-    outline: none;
-    transition: all 0.15s ease-in-out;
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #f4f4f5;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  transition: all 0.15s ease-in-out;
 }
 
 /* تأثير التركيز على الإدخال */
 .inputField:focus {
-    box-shadow: 0 0 0 2px #3f3f46, 0 0 0 4px #09090b;
+  box-shadow: 0 0 0 2px #3f3f46, 0 0 0 4px #09090b;
 }
+
 .inputmm {
-    background-color: transparent;
-    color: #f4f4f5;
-    padding: 4px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0 8px 8px 0;
-    cursor: pointer;
-    transition: all 0.15s ease-in-out;
+  background-color: transparent;
+  color: #f4f4f5;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
 }
 
 /* تأثير التحويم على الزر */
 .inputmm:hover {
-    background-color: rgba(24, 24, 27, 0.4);
+  background-color: rgba(24, 24, 27, 0.4);
 }
+
 /*ازالة اسهم الزيادة والنقصان في البلانك*/
 input[type="number"] {
-    -moz-appearance: textfield; /* لمتصفح Firefox */
-    -webkit-appearance: none; /* لمتصفح Chrome و Safari */
-    appearance: none; /* لجميع المتصفحات الحديثة */
+  -moz-appearance: textfield;
+  /* لمتصفح Firefox */
+  -webkit-appearance: none;
+  /* لمتصفح Chrome و Safari */
+  appearance: none;
+  /* لجميع المتصفحات الحديثة */
 }
 
 /*Chrome و Safari */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
+
 /*table css*/
 
 body {
@@ -235,11 +249,22 @@ body {
 
 p {
   color: rgba(255, 255, 255, 0.5);
-  font-weight: 300; 
+  font-weight: 300;
 }
 
-h1, h2, h3, h4, h5, h6,.h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 a {
@@ -247,223 +272,245 @@ a {
   -o-transition: .3s all ease;
   transition: .3s all ease;
 }
-a, a:hover {
-    text-decoration: none !important; 
+
+a,
+a:hover {
+  text-decoration: none !important;
 }
 
 .content {
-  padding: 7rem 0; 
+  padding: 7rem 0;
 }
+
 h2 {
   font-size: 20px;
   color: #ffffff;
 }
 
 .custom-table {
-  min-width: 700px; /*المسافه بين بيانات الاعمده الاساسيه*/
+  min-width: 700px;
+  /*المسافه بين بيانات الاعمده الاساسيه*/
   text-align: center;
   width: 100%;
 }
 
-  .backHomeLogo {
-    display: inline-block;
-    padding: 5px;
-    transition: transform 0.3s ease;
-    
-  }
-  
-  .backHomeLogo img {
-    width: 70px;
-    margin-left: 20px;
-    display: block;
-  }
-  
-  .backHomeLogo:hover {
-    transform: scale(1.1);
-  }
+.backHomeLogo {
+  display: inline-block;
+  padding: 5px;
+  transition: transform 0.3s ease;
+}
+
+.backHomeLogo img {
+  width: 70px;
+  margin-left: 20px;
+  display: block;
+}
+
+.backHomeLogo:hover {
+  transform: scale(1.1);
+}
 
 
 @media (max-width: 767px) {
-    .container, .containerT {
-      width: 35%;
-      padding: 10px;
-      margin-top: 80px;
-    }
-  
-    .progress-box {
-      height: auto;
-      padding: 10px;
-    }
-  
-    .progress-bar span::after {
-      right: -18px;
-      font-size: 10px;
-      padding: 2px 5px;
-    }
-  
-    .FormBlank {
-      display: flex;
-      width: 100%;
-      padding-left: px;
-    }
-    .inputField{
-      width: 55%;
-    
-    }
-    .inputmm {
-      width: auto;
-      text-align: center;
-      cursor: pointer;
-    }
-  
-    
-  }
-  @media (max-width: 767px) {
-    .backHomeLogo {
-      display: inline-block;
-      padding: 5px;
-      position: absolute; /* أو relative حسب المكان اللي تبغاه */
-      top: 10px;
-      left: 10px; /* أو right: 10px لو تبغى الزر في اليمين */
-      z-index: 1000;
-    }
-  
-    .backHomeLogo img {
-      width: 40px;
-      height: auto;
-    }
 
-    body {
-      font-family: "Noto Naskh Arabic", serif;
-      font-size: 14px; /* يمكنك تعديل الحجم كما تريد */
-    }
-    .container h2, .progress-box p, .custom-table td, .custom-table th {
-      font-family: "Noto Naskh Arabic", serif;
-      font-size: 14px; /* تعديل الحجم المناسب للشاشة الصغيرة */
-    }
-  }
-  @media (max-width: 767px) {
-    .table-responsive {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
+  .container,
+  .containerT {
+    width: 40%;
+    padding: 10px;
+    margin-top: 80px;
   }
 
-  .wrapper {
-    margin: 0 auto;
-    padding: 25px;
-    max-width: 100%;
+  .progress-box {
+    height: auto;
+    padding: 10px;
   }
-  
-  .table {
+
+  .progress-bar span::after {
+    right: -18px;
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  .FormBlank {
+    display: flex;
     width: 100%;
-    display: table;
-    text-align: center;
-  }
-  
-  .row {
-    display: table-row;
-    transition: 0.3s all ease;
-  }
-  
-  .row.header {
-    font-weight: 900;
-    color: #fff;
-    background: #3c373e;
-    text-transform: uppercase;
-    font-size: 11px;
-    letter-spacing: 0.2rem;
-  }
-  
-  .col {
-    display: table-cell;
-    padding: 20px 10px;
-    font-weight: 300;
-    color: #777;
-    border: none;
-    transition: 0.3s all ease;
-  }
-  
-  .row.header:hover .col {
-    color: #fff;
-  }
-  .row:hover .col[data-title="votingPolls"] {
-    color: #fdd114; /* تغيير اللون إلى الأصفر */
-  }
-  .row:hover .col {
-    color: #efece2;
-  }
-  
-  .col small {
-    color: rgba(255, 255, 255, 0.3);
-    font-weight: 300;
-  }
-  
-  .col a {
-    color: rgba(255, 255, 255, 0.3);
-    text-decoration: none;
-  }
-  
-  .more {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 11px;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: .2rem;
-  }
-  
-  .row:hover .more {
-    color: #fdd114;
+    padding-left: 80px;
   }
 
-  @media screen and (max-width: 580px) {
-    body {
-      font-size: 16px;
-      line-height: 22px;
-    }
-    .table {
-      display: block;
-    }
-    .row {
-      padding: 14px 0 7px;
-      display: block;
-    }
-    .row.header {
-      padding: 0;
-      height: 6px;
-    }
-  
-    .row.header .col {
-      display: none;
-    }
-  
-    .row .col {
-      margin-bottom: 10px;
-    }
-  
-    .row .col:before {
-      margin-bottom: 3px;
-      content: attr(data-title);
-      min-width: 98px;
-      font-size: 10px;
-      line-height: 10px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #969696;
-      display: block;
-    }
-    .col {
-      padding: 2px 16px;
-      display: block;
-    }
-    .row:nth-child(odd) {
-      background-color: #4a434a; /* لون رمادي فاتح للسجل الفردي */
-    }
-    
-    .row:nth-child(even) {
-      background-color:  #201d20; /* لون رمادي أغمق للسجل الزوجي */
-    }
-    .row .col {
-      color: #f3ecec; /* النص يكون باللون الأسود */
-    }    
+  .inputField {
+    width: 30%;
+
   }
+
+  .inputmm {
+    width: auto;
+    text-align: center;
+    cursor: pointer;
+  }
+
+
+}
+
+@media (max-width: 767px) {
+  .backHomeLogo {
+    display: inline-block;
+    padding: 5px;
+    position: absolute;
+    /* أو relative حسب المكان اللي ابغاه */
+    top: 10px;
+    left: 10px;
+    /* أو right: 10px لو ابغى الزر في اليمين */
+    z-index: 1000;
+  }
+
+  .backHomeLogo img {
+    width: 40px;
+    height: auto;
+  }
+
+  body {
+    font-family: "Noto Naskh Arabic", serif;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.wrapper {
+  margin: 0 auto;
+  padding: 25px;
+  max-width: 100%;
+}
+
+.table {
+  width: 100%;
+  display: table;
+  text-align: center;
+}
+
+.row {
+  display: table-row;
+  transition: 0.3s all ease;
+}
+
+.row.header {
+  font-weight: 900;
+  color: #fff;
+  background: #3c373e;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.2rem;
+}
+
+.col {
+  display: table-cell;
+  padding: 20px 10px;
+  font-weight: 300;
+  color: #777;
+  border: none;
+  transition: 0.3s all ease;
+}
+
+.row.header:hover .col {
+  color: #fff;
+}
+
+.row:hover .col[data-title="votingPolls"] {
+  color: #fdd114;
+}
+
+.row:hover .col {
+  color: #efece2;
+}
+
+.col small {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 300;
+}
+
+.col a {
+  color: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+}
+
+.more {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+}
+
+.row:hover .more {
+  color: #fdd114;
+}
+
+@media screen and (max-width: 580px) {
+  body {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .table {
+    display: block;
+    table-layout: fixed;
+    width: 42%;
+    margin: 0 auto;
+    /*توسيط الجدول*/
+  }
+
+  .row {
+    padding: 14px 0 7px;
+    display: block;
+  }
+
+  .row.header {
+    padding: 0;
+    height: 6px;
+  }
+
+  .row.header .col {
+    display: none;
+  }
+
+  .row .col {
+    margin-bottom: 10px;
+  }
+
+  .row .col:before {
+    margin-bottom: 3px;
+    content: attr(data-title);
+    min-width: 98px;
+    font-size: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #969696;
+    display: block;
+  }
+
+  .col {
+    padding: 2px 16px;
+    display: block;
+  }
+
+  .row:nth-child(odd) {
+    background-color: #4a434a;
+    /* لون رمادي فاتح للسجل الفردي */
+  }
+
+  .row:nth-child(even) {
+    background-color: #201d20;
+    /* لون رمادي أغمق للسجل الزوجي */
+  }
+
+  .row .col {
+    color: #f3ecec;
+    /* النص يكون باللون الأسود */
+  }
+}

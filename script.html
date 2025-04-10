@@ -1,112 +1,107 @@
-
-
-
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vote</title>
-    <link rel="icon" type="image/png" href="../img/love-birds.png">
-    <link rel="stylesheet" href="Vstyle.css">
-    <link rel="stylesheet" href="style.css"> 
-    <script src="https://duckyduck0.onrender.com/socket.io/socket.io.js"></script>    
-<!--table things-->
-<!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vote</title>
+  <link rel="icon" type="image/png" href="../img/love-birds.png">
+  <link rel="stylesheet" href="Vstyle.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://duckyduck0-2.onrender.com/socket.io/socket.io.js"></script>
+  <!--table things-->
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    
-    <!-- Style -->
-    <link rel="stylesheet" href="Vstyle.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <!-- Style -->
+  <link rel="stylesheet" href="Vstyle.css">
 
 </head>
 
 <body>
-      <nav>
-<a href="../index.html" class="backHomeLogo"><img src="../img/road.png"></a>
-<div class="nav-links" id="navLinks">
-    <ul>
+  <nav>
+    <a href="../index.html" class="backHomeLogo"><img src="../img/road.png"></a>
+    <div class="nav-links" id="navLinks">
+      <ul>
         <li><a href="index.html" class="home-item">HOME</a></li>
-    </ul>
-</div>
-</nav>
-    <div class="yu">
+      </ul>
+    </div>
+  </nav>
+  <div class="yu">
     <div class="container">
-        <h2> Vote for the duck!🪿</h2>
-        <div class="progress-box" id="yes" onclick="yes(0)">
-            <p>Yes </p>
-            <div class="progress-bar">
-                <span data="0%" class="percent-tag"></span>
-            </div>
+      <h2> Vote for the duck!🪿</h2>
+      <div class="progress-box" id="yes" onclick="yes(0)">
+        <p>Yes </p>
+        <div class="progress-bar">
+          <span data="0%" class="percent-tag"></span>
         </div>
-        <form action="../nodeServer/index.js" class="FormBlank" id="yesForm" method="post" style="display: none;">
-            <input 
-            type="number" min="0" max="100"
-            class="inputField" name="value" 
-            placeholder="النسبة من %"  >
-                <input class="inputmm" type="submit"/> 
-        
-        </form>
-        
-        <div class="progress-box" id="no">
-            <p>No</p>
-            <div class="progress-bar">
-                <span data="0%" class="percent-tag"></span>
-            </div>
+      </div>
+      <form action="../nodeServer/index.js" class="FormBlank" id="yesForm" method="post" style="display: none;">
+        <input type="number" min="0" max="100" class="inputField" name="value" placeholder="أدخل النسبة">
+        <button class="inputmm" type="submit"> ارسال </button>
+
+      </form>
+
+      <div class="progress-box" id="no">
+        <p>No</p>
+        <div class="progress-bar">
+          <span data="0%" class="percent-tag"></span>
         </div>
-        <p id="responseMessage"></p>
-        <h3>Total Votes : <span id="totalVotes"></span></h3>
+      </div>
+      <p id="responseMessage"></p>
+      <h3>Total Votes : <span id="totalVotes"></span></h3>
     </div>
     <script defer src="routes/script.js"></script> <!--تغيير-->
-    
-<!--Table -->
-    <div class="containerT">      
-<div class="custom-table"> 
-<div class="wrapper">
-  <div class="table">
-    
-    <!-- Header -->
-    <div class="row header">
-      <div class="col">id</div>
-      <div class="col">votingPolls</div>
-      <div class="col">percentage</div>
-      <div class="col">time</div>
-      <div class="col">date</div>
-      <div class="col">totalVotes</div>
-    </div>
-    
-     <div id="row">
-         
-     </div>
+
+    <!--Table -->
+    <div class="containerT">
+      <div class="custom-table">
+        <div class="wrapper">
+          <div class="table">
+
+            <!-- Header -->
+            <div class="row header">
+              <div class="col">id</div>
+              <div class="col">votingPolls</div>
+              <div class="col">percentage</div>
+              <div class="col">time</div>
+              <div class="col">date</div>
+              <div class="col">totalVotes</div>
+            </div>
+
+            <div id="row">
+
+            </div>
 
 
 
-  </div>
-</div>
-</div>
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-  fetch('https://duckyduck0-2.onrender.com/data')
-    .then(response => response.json())
-    .then(data => {
-      const tableBody = document.querySelector('#row');
-      if (!tableBody) {
-        console.error('العنصر #row غير موجود!');
-        return;
-      }
-        data.forEach(row => {
-          const rowDiv = document.createElement('div');
-          rowDiv.classList.add('row');
-          rowDiv.innerHTML = `
+          </div>
+        </div>
+      </div>
+      <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          fetch('https://duckyduck0-2.onrender.com/data')
+            .then(response => response.json())
+            .then(data => {
+              const tableBody = document.querySelector('#row');
+              if (!tableBody) {
+                console.error('العنصر #row غير موجود!');
+                return;
+              }
+              data.forEach(row => {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('row');
+                rowDiv.innerHTML = `
                   <div class="col" data-title="id">${row.id}</div>
         <div class="col" data-title="votingPolls">${row.votingPolls}</div>
         <div class="col" data-title="percentage">${row.percentage}</div>
@@ -116,24 +111,25 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
           `;
-          tableBody.appendChild(rowDiv);
+                tableBody.appendChild(rowDiv);
+              });
+            })
+            .catch(error => console.error('حدث خطأ:', error));
         });
-      })
-      .catch(error => console.error('حدث خطأ:', error));
-    });
-  </script>
+      </script>
 
     </div>
 
   </div>
-</div>
-    
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-</table>
-<!-- PHP CODE FOR TABLE / FETCH DATA FROM DB -->
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+  </table>
+  <!-- PHP CODE FOR TABLE / FETCH DATA FROM DB -->
 
 </body>
+
 </html>
